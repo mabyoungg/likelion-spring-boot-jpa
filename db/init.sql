@@ -1,0 +1,7 @@
+DROP DATABASE IF EXISTS likelion_spring_boot_jpa_dev;
+CREATE DATABASE likelion_spring_boot_jpa_dev;
+USE likelion_spring_boot_jpa_dev;
+
+DROP DATABASE IF EXISTS likelion_spring_boot_jpa_test;
+CREATE DATABASE likelion_spring_boot_jpa_test;
+USE likelion_spring_boot_jpa_test;
