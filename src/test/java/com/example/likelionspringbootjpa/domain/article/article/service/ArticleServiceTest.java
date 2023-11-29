@@ -21,7 +21,7 @@ public class ArticleServiceTest {
     @DisplayName("article write")
     @Test
     void t1() {
-        RsData<Article> joinRs = articleService.write("제목", "내용");
+        RsData<Article> joinRs = articleService.write(1, "제목", "내용");
         Article article = joinRs.getData();
 
         assertThat(article.getId()).isGreaterThan(0L);
