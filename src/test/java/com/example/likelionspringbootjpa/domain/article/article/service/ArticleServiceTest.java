@@ -1,6 +1,8 @@
 package com.example.likelionspringbootjpa.domain.article.article.service;
 
 import com.example.likelionspringbootjpa.domain.article.article.entity.Article;
+import com.example.likelionspringbootjpa.domain.member.member.entity.Member;
+import com.example.likelionspringbootjpa.domain.member.member.service.MemberService;
 import com.example.likelionspringbootjpa.global.rsData.RsData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ArticleServiceTest {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private MemberService memberService;
 
     @DisplayName("article write")
     @Test
@@ -25,5 +29,16 @@ public class ArticleServiceTest {
         Article article = joinRs.getData();
 
         assertThat(article.getId()).isGreaterThan(0L);
+    }
+
+    @DisplayName("1번 글의 작성자 username 은 user1")
+    @Test
+    void t2() {
+        Article article = articleService.findById(1L).get();
+        long authorId = article.getAuthorId();
+
+        Member member = memberService.findById(authorId).get();
+
+        assertThat(member.getUsername()).isEqualTo("user1");
     }
 }
