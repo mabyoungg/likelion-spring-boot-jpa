@@ -2,6 +2,7 @@ package com.example.likelionspringbootjpa.domain.article.article.service;
 
 import com.example.likelionspringbootjpa.domain.article.article.entity.Article;
 import com.example.likelionspringbootjpa.domain.article.article.repository.ArticleRepository;
+import com.example.likelionspringbootjpa.domain.article.articleComment.entity.ArticleComment;
 import com.example.likelionspringbootjpa.domain.member.member.entity.Member;
 import com.example.likelionspringbootjpa.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,10 @@ public class ArticleService {
     public void modify(Article article, String title, String body) {
         article.setTitle(title);
         article.setBody(body);
+    }
+
+    @Transactional
+    public void modifyComment(ArticleComment comment, String body) {
+        comment.setBody(body);
     }
 }
