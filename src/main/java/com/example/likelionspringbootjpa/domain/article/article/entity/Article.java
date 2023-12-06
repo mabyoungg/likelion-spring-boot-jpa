@@ -1,25 +1,23 @@
 package com.example.likelionspringbootjpa.domain.article.article.entity;
 
 import com.example.likelionspringbootjpa.domain.member.member.entity.Member;
-import jakarta.persistence.*;
+import com.example.likelionspringbootjpa.global.jpa.baseEntity.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@NoArgsConstructor(access = PROTECTED)
+@SuperBuilder
 @AllArgsConstructor(access = PROTECTED)
-@Builder
-@Getter
+@NoArgsConstructor(access = PROTECTED)
 @Setter
-@EqualsAndHashCode
-public class Article {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
+@Getter
+@ToString(callSuper = true)
+public class Article extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     private Member author;
     private String title;
