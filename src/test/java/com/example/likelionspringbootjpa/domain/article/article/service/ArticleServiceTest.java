@@ -1,6 +1,7 @@
 package com.example.likelionspringbootjpa.domain.article.article.service;
 
 import com.example.likelionspringbootjpa.domain.article.article.entity.Article;
+import com.example.likelionspringbootjpa.domain.article.articleComment.entity.ArticleComment;
 import com.example.likelionspringbootjpa.domain.member.member.entity.Member;
 import com.example.likelionspringbootjpa.domain.member.member.service.MemberService;
 import com.example.likelionspringbootjpa.global.rsData.RsData;
@@ -70,6 +71,16 @@ public class ArticleServiceTest {
         article.getComments().forEach(comment -> {
             articleService.modifyComment(comment, comment.getBody() + "!!");
         });
+    }
+
+    @DisplayName("1번 글의 댓글 중 마지막 것을 삭제한다.")
+    @Test
+    void t6() {
+        Article article = articleService.findById(1L).get();
+
+        ArticleComment lastComment = article.getComments().getLast();
+
+        article.removeComment(lastComment);
     }
 
 }
