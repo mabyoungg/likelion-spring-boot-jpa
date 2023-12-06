@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +50,6 @@ public class ArticleServiceTest {
 
     @DisplayName("1번 글의 제목을 수정한다.")
     @Test
-    @Rollback(false)
     void t4() {
         Article article = articleService.findById(1L).get();
 
