@@ -30,11 +30,15 @@ public class Article extends BaseEntity {
     private Member author;
     private String title;
     private String body;
+
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
     @Builder.Default
+    @ToString.Exclude
     private List<ArticleComment> comments = new ArrayList<>();
+
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
     @Builder.Default
+    @ToString.Exclude
     private List<ArticleTag> tags = new ArrayList<>();
 
     public void addComment(Member commentAuthor, String commentBody) {
