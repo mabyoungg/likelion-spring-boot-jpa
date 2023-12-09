@@ -1,6 +1,7 @@
 package com.example.likelionspringbootjpa.domain.article.articleTag.entity;
 
 import com.example.likelionspringbootjpa.domain.article.article.entity.Article;
+import com.example.likelionspringbootjpa.domain.member.member.entity.Member;
 import com.example.likelionspringbootjpa.global.jpa.baseEntity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -20,5 +21,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class ArticleTag extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     private Article article;
+    @ManyToOne(fetch = LAZY)
+    private Member author;
     private String content;
 }
