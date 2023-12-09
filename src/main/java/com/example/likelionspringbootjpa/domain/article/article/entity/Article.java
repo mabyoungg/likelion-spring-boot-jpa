@@ -1,6 +1,7 @@
 package com.example.likelionspringbootjpa.domain.article.article.entity;
 
 import com.example.likelionspringbootjpa.domain.article.articleComment.entity.ArticleComment;
+import com.example.likelionspringbootjpa.domain.article.articleTag.entity.ArticleTag;
 import com.example.likelionspringbootjpa.domain.member.member.entity.Member;
 import com.example.likelionspringbootjpa.global.jpa.baseEntity.BaseEntity;
 import jakarta.persistence.Entity;
@@ -31,6 +32,9 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
     @Builder.Default
     private List<ArticleComment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<ArticleTag> tags = new ArrayList<>();
 
     public void addComment(Member commentAuthor, String commentBody) {
         ArticleComment comment = ArticleComment.builder()
@@ -44,5 +48,20 @@ public class Article extends BaseEntity {
 
     public void removeComment(ArticleComment comment) {
         comments.remove(comment);
+    }
+
+    public void addTag(String tagContent) {
+        ArticleTag tag = ArticleTag.builder()
+                .article(this)
+                .content(tagContent)
+                .build();
+
+        tags.add(tag);
+    }
+
+    public void addTag(String... tagContents) {
+        for (String tagContent : tagContents) {
+            addTag(tagContent);
+        }
     }
 }
