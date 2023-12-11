@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/article")
@@ -24,15 +26,24 @@ public class ArticleController {
 
     @GetMapping("/list")
     public String list(
-            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kwType", defaultValue = "") List<String> kwTypes,
+            @RequestParam(defaultValue = "0") int page,
             Model model
     ) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("id"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
+        Map<String, Boolean> kwTypesMap = kwTypes
+                .stream()
+                .collect(Collectors.toMap(
+                        kwType -> kwType,
+                        kwType -> true
+                ));
+
         Page<Article> itemsPage = articleService.search(pageable);
         model.addAttribute("itemsPage", itemsPage);
+        model.addAttribute("kwTypesMap", kwTypesMap);
 
         return "article/list";
     }
