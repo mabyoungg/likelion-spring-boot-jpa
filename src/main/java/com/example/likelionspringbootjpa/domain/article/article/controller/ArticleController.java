@@ -26,7 +26,7 @@ public class ArticleController {
 
     @GetMapping("/list")
     public String list(
-            @RequestParam(value = "kwType", defaultValue = "") List<String> kwTypes,
+            @RequestParam(value = "kwType", defaultValue = "title,body") List<String> kwTypes,
             @RequestParam(defaultValue = "") String kw,
             @RequestParam(defaultValue = "0") int page,
             Model model
