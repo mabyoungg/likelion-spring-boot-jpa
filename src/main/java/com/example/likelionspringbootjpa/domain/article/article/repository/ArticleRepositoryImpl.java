@@ -27,38 +27,40 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
     public Page<Article> search(List<String> kwTypes, String kw, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        List<BooleanExpression> conditions = new ArrayList<>();
+        if (!kw.isBlank()) {
+            List<BooleanExpression> conditions = new ArrayList<>();
 
-        if (kwTypes.contains("authorUsername")) {
-            conditions.add(article.author.username.containsIgnoreCase(kw));
-        }
+            if (kwTypes.contains("authorUsername")) {
+                conditions.add(article.author.username.containsIgnoreCase(kw));
+            }
 
-        if (kwTypes.contains("title")) {
-            conditions.add(article.title.containsIgnoreCase(kw));
-        }
+            if (kwTypes.contains("title")) {
+                conditions.add(article.title.containsIgnoreCase(kw));
+            }
 
-        if (kwTypes.contains("body")) {
-            conditions.add(article.body.containsIgnoreCase(kw));
-        }
+            if (kwTypes.contains("body")) {
+                conditions.add(article.body.containsIgnoreCase(kw));
+            }
 
-        if (kwTypes.contains("tagContent")) {
-            conditions.add(article.tags.any().content.eq(kw));
-        }
+            if (kwTypes.contains("tagContent")) {
+                conditions.add(article.tags.any().content.eq(kw));
+            }
 
-        if (kwTypes.contains("commentAuthorUsername")) {
-            conditions.add(article.comments.any().author.username.containsIgnoreCase(kw));
-        }
+            if (kwTypes.contains("commentAuthorUsername")) {
+                conditions.add(article.comments.any().author.username.containsIgnoreCase(kw));
+            }
 
-        if (kwTypes.contains("commentBody")) {
-            conditions.add(article.comments.any().body.containsIgnoreCase(kw));
-        }
+            if (kwTypes.contains("commentBody")) {
+                conditions.add(article.comments.any().body.containsIgnoreCase(kw));
+            }
 
-        BooleanExpression combinedCondition = conditions.stream()
-                .reduce(BooleanExpression::or)
-                .orElse(null);
+            BooleanExpression combinedCondition = conditions.stream()
+                    .reduce(BooleanExpression::or)
+                    .orElse(null);
 
-        if (combinedCondition != null) {
-            builder.and(combinedCondition);
+            if (combinedCondition != null) {
+                builder.and(combinedCondition);
+            }
         }
 
         JPAQuery<Article> articlesQuery = jpaQueryFactory
