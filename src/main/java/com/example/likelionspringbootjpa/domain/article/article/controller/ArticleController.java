@@ -28,7 +28,7 @@ public class ArticleController {
     public String list(
             @RequestParam(value = "kwType", defaultValue = "title,body") List<String> kwTypes,
             @RequestParam(defaultValue = "") String kw,
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             Model model
     ) {
         List<Sort.Order> sorts = new ArrayList<>();
